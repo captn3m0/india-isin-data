@@ -6,6 +6,9 @@ NSDL provides a ISIN Search at <https://nsdl.co.in/master_search.php>, but this 
 
 Currently tracked:
 
-|File|Data|
+|File|Issuer|
 -----|-----
-`mutual-funds.csv`|Mutual Funds
+`INA.csv`|Central Government
+`INB.csv`|State Government
+`INE.csv`|Company, Statuatory Corporation, Banking Company
+`INF.csv`|Mutual Funds
