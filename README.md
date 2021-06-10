@@ -12,7 +12,13 @@ Currently tracked:
 `INB.csv`|State Government
 `INE.csv`|Company, Statuatory Corporation, Banking Company
 `INF.csv`|Mutual Funds
+`IN9.csv`|Partly paid up shares
 
 # Code
 
-You can run the `fetch.sh` script to generate all the files from scratch.
+You can run the `fetch.sh` script to generate all the files from scratch. Dependencies:
+
+- https://github.com/ericchiang/pup
+- https://stedolan.github.io/jq/
+- https://www.gnu.org/software/parallel/
+- https://curl.se/
