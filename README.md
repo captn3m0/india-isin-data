@@ -2,7 +2,7 @@
 
 ISIN Data from various public securities.
 
-NSDL provides a ISIN Search at <https://nsdl.co.in/master_search.php>, but this is meant to cover 95% of the usecases.
+Source: NSDL provides a ISIN Search at <https://nsdl.co.in/master_search.php>.
 
 Currently tracked:
 
@@ -12,3 +12,7 @@ Currently tracked:
 `INB.csv`|State Government
 `INE.csv`|Company, Statuatory Corporation, Banking Company
 `INF.csv`|Mutual Funds
+
+# Code
+
+You can run the `fetch.sh` script to generate all the files from scratch.
