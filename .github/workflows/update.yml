@@ -1,0 +1,22 @@
+name: Update Data
+on:
+  push:
+  # Run this on Sundays because NSDL won't add new things then
+  schedule:
+    # 8:07 UTC every Sunday
+    # 13:37 IST every Sunday
+    - cron: '7 8 * * 0'
+jobs:
+  update:
+    name: Update data
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+    - name: Update data
+      run: ./fetch.sh
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update ISIN Data
+        commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'

@@ -4,6 +4,8 @@ ISIN Data from various public securities.
 
 Source: NSDL provides a ISIN Search at <https://nsdl.co.in/master_search.php>.
 
+Automatically updated every Sunday using GitHub Actions.
+
 Currently tracked:
 
 |File|Issuer|
