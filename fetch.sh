@@ -49,7 +49,9 @@ function fetch_class() {
 
 for i in A B E F 9; do
   total=$(fetch_total_pages "IN$i")
+  echo "::group::IN$i (Total=$total)"
   fetch_class "IN$i" $total
+  echo "::endgroup::"
 done
 
 sem --wait
