@@ -21,9 +21,7 @@ function fetch_page() {
     --connect-timeout 10 \
     --retry-max-time 30 \
     --data cnum=$1 \
-    --data "page_no=$2" |
-  # for each row
-  $PUP_BINARY '#nsdl-tables tr json{}' | \
+    --data "page_no=$2" | $PUP_BINARY '#nsdl-tables tr json{}' | \
   # generate 6 lines (second column has a link, so parse that) with raw output
   jq --raw-output '.[] | [.children[1].children[0].text, .children[2].text, .children[3].text,.children[4].text,.children[5].text]|.[]' | \
   # and create a CSV from every 5 lines
@@ -47,11 +45,14 @@ function fetch_class() {
   done
 }
 
-for i in A B E F 9; do
+for i in E F 9; do
   total=$(fetch_total_pages "IN$i")
   echo "::group::IN$i (Total=$total)"
+  rm "IN$i.csv"
   fetch_class "IN$i" $total
   echo "::endgroup::"
+  # Sort the file in place
+  sort -o "IN$i.csv" "IN$i.csv"
 done
 
 sem --wait
