@@ -4,8 +4,8 @@ export PUP_BINARY="$(which pup)"
 
 if ! command -v pup &> /dev/null
 then
-  wget https://github.com/ericchiang/pup/releases/download/v0.4.0/pup_v0.4.0_linux_amd64.zip -O pup.zip
-  echo "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  pup.zip" | sha256sum --check 
+  wget --quiet https://github.com/ericchiang/pup/releases/download/v0.4.0/pup_v0.4.0_linux_amd64.zip -O pup.zip
+  echo "ec3d29e9fb375b87ac492c8b546ad6be84b0c0b49dab7ff4c6b582eac71ba01c  pup.zip" | sha256sum --strict --check
   unzip pup.zip
   rm pup.zip
   chmod +x ./pup
