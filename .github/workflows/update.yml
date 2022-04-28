@@ -1,11 +1,12 @@
 name: Update Data
 on:
   push:
-  # Run this on Sundays because NSDL won't add new things then
+    branches:    
+      - main
   schedule:
-    # 8:07 UTC every Sunday
-    # 13:37 IST every Sunday
-    - cron: '7 8 * * 0'
+    # 18:07 UTC every day
+    # 23:37 IST every day
+    - cron: '7 18 * * *'
 jobs:
   update:
     name: Update data
