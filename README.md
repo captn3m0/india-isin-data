@@ -4,9 +4,7 @@ ISIN Data from various public securities.
 
 Source: [NSDL Website Detailed ISIN Search][nsdl].
 
-Automatically updated every Sunday using GitHub Actions.
-
-Currently tracked:
+Automatically updated every midnight (IST).
 
 |File|Issuer|Tracked|
 -----|-----|----|
@@ -26,6 +24,7 @@ You can run the `fetch.sh` script to generate the tracked the files from scratch
 - https://stedolan.github.io/jq/
 - https://www.gnu.org/software/parallel/
 - https://curl.se/
+- https://www.gnu.org/software/sed/
 
 # Structure
 

@@ -59,4 +59,7 @@ sem --wait
 for i in E F 9; do
   # Sort the file in place
   sort -o "IN$i.csv" "IN$i.csv"
+  # Remove lines that don't start with the correct prefix
+  # This is to avoid ISINs like INF955L01IN9 showing up under IN9
+  sed -i '/^IN$i/!d' "IN$i.csv"
 done
