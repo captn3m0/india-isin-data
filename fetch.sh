@@ -52,8 +52,11 @@ for i in E F 9; do
   rm "IN$i.csv"
   fetch_class "IN$i" $total
   echo "::endgroup::"
-  # Sort the file in place
-  sort -o "IN$i.csv" "IN$i.csv"
 done
 
 sem --wait
+
+for i in E F 9; do
+  # Sort the file in place
+  sort -o "IN$i.csv" "IN$i.csv"
+done
