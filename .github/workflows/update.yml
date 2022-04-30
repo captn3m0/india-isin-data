@@ -29,4 +29,6 @@ jobs:
         status_options: '--untracked-files=no'
         tagging_message: "v${{ steps.current-time.outputs.formattedTime }}"
     - name: Create Release
-      run: gh release create "v${{ steps.current-time.outputs.formattedTime }}" --notes "v${{steps.current-time.outputs.formattedTime}}" *.csv
+      run: |
+        jq '.version = "ABC"' datapackage.json  > d2.json && mv d2.json datapackage.json
+        gh release create "v${{ steps.current-time.outputs.formattedTime }}" --notes "v${{steps.current-time.outputs.formattedTime}}" *.csv && \

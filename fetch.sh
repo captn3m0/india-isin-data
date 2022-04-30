@@ -65,4 +65,11 @@ for i in E F 9; do
 done
 
 # Update CITATION
-git diff --quiet *.csv || (sed -i "s/^version.*/version: $1/" CITATION.cff && git add CITATION.cff)
+if [[ $(git diff --stat *.csv) != '' ]]; then
+  sed -i "s/^version.*/version: $1/" CITATION.cff
+  sed -i "s/^date-released.*/date-released: $(date --rfc-3339=date)/" CITATION.cff
+
+  jq ".version = \"$1\" | .created = \"$(date --rfc-3339=seconds)\"" datapackage.json > d2.json
+  mv d2.json datapackage.json
+  git add CITATION.cff datapackage.json
+fi

@@ -1,0 +1,179 @@
+{
+  "contributors": [
+    {
+      "email": "isin@captnemo.in",
+      "path": "https://captnemo.in",
+      "role": "author",
+      "title": "Nemo"
+    }
+  ],
+  "description": "Regularly updated database containing all ISIN codes and details issued in India in CSV format",
+  "homepage": "https://github.com/captn3m0/india-isin-data",
+  "id": "https://doi.org/10.5281/zenodo.6508187",
+  "keywords": [
+    "csv",
+    "dataset",
+    "india",
+    "isin",
+    "funds",
+    "securities",
+    "nsdl"
+  ],
+  "name": "india-isin-data",
+  "profile": "tabular-data-resource",
+  "resources": [
+    {
+      "description": "Indian ISINs for Company, Statuatory Corporation, Banking Company. These are ISINs starting with INE.",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "india-isin-ine",
+      "path": "INE.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "ISIN code for the security",
+            "example": "INF00XX01093",
+            "name": "ISIN",
+            "title": "ISIN Code",
+            "type": "string"
+          },
+          {
+            "description": "Description for the security",
+            "example": "ITI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "name": "Description",
+            "title": "ISIN Description",
+            "type": "string"
+          },
+          {
+            "description": "Name of the issuer that issued this security",
+            "example": "ITI MUTUAL FUND",
+            "name": "Issuer",
+            "title": "Name of the Issuer",
+            "type": "string"
+          },
+          {
+            "description": "Description of the type of security",
+            "example": "MUTUAL FUND UNIT (TRASE)",
+            "name": "Type",
+            "title": "Security Type",
+            "type": "string"
+          },
+          {
+            "description": "ISIN Status (such as Deleted, Active, Suspended)",
+            "example": "ACTIVE",
+            "name": "Status",
+            "title": "Security Status",
+            "type": "string"
+          }
+        ]
+      },
+      "title": "India ISIN (Company, Statuatory Corporation, Banking Company)"
+    },
+    {
+      "description": "Indian ISINs for Mutual Funds. These are ISINs starting with INF.",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "india-isin-inf",
+      "path": "INF.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "ISIN code for the security",
+            "example": "INF00XX01093",
+            "name": "ISIN",
+            "title": "ISIN Code",
+            "type": "string"
+          },
+          {
+            "description": "Description for the security",
+            "example": "ITI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "name": "Description",
+            "title": "ISIN Description",
+            "type": "string"
+          },
+          {
+            "description": "Name of the issuer that issued this security",
+            "example": "ITI MUTUAL FUND",
+            "name": "Issuer",
+            "title": "Name of the Issuer",
+            "type": "string"
+          },
+          {
+            "description": "Description of the type of security",
+            "example": "MUTUAL FUND UNIT (TRASE)",
+            "name": "Type",
+            "title": "Security Type",
+            "type": "string"
+          },
+          {
+            "description": "ISIN Status (such as Deleted, Active, Suspended)",
+            "example": "ACTIVE",
+            "name": "Status",
+            "title": "Security Status",
+            "type": "string"
+          }
+        ]
+      },
+      "title": "India ISIN (Mutual Funds)"
+    },
+    {
+      "description": "Indian ISINs for Partly paid up shares. These are ISINs starting with IN9.",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "india-isin-in9",
+      "path": "IN9.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "ISIN code for the security",
+            "example": "INF00XX01093",
+            "name": "ISIN",
+            "title": "ISIN Code",
+            "type": "string"
+          },
+          {
+            "description": "Description for the security",
+            "example": "ITI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "name": "Description",
+            "title": "ISIN Description",
+            "type": "string"
+          },
+          {
+            "description": "Name of the issuer that issued this security",
+            "example": "ITI MUTUAL FUND",
+            "name": "Issuer",
+            "title": "Name of the Issuer",
+            "type": "string"
+          },
+          {
+            "description": "Description of the type of security",
+            "example": "MUTUAL FUND UNIT (TRASE)",
+            "name": "Type",
+            "title": "Security Type",
+            "type": "string"
+          },
+          {
+            "description": "ISIN Status (such as Deleted, Active, Suspended)",
+            "example": "ACTIVE",
+            "name": "Status",
+            "title": "Security Status",
+            "type": "string"
+          }
+        ]
+      },
+      "title": "India ISIN (Company, Statuatory Corporation, Banking Company)"
+    }
+  ],
+  "sources": [
+    {
+      "path": "https://nsdl.co.in/master_search.php",
+      "title": "NSDL Website Detailed ISIN Search"
+    }
+  ],
+  "title": "India ISIN Database",
+  "version": "ABC",
+  "created": "2022-04-30 19:56:14+05:30"
+}
