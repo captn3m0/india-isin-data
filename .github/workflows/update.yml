@@ -1,8 +1,5 @@
 name: Update Data
 on:
-  push:
-    branches:    
-      - main
   schedule:
     # 18:07 UTC every day
     # 23:37 IST every day
@@ -25,7 +22,6 @@ jobs:
       run: ./fetch.sh "${{ steps.current-time.outputs.formattedTime }}"
     # Only tag if we're running on the scheduled job
     - uses: stefanzweifel/git-auto-commit-action@v4
-      if: ${{ github.event_name == 'schedule' }}
       with:
         commit_message: Update ISIN Data
         commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
@@ -33,12 +29,4 @@ jobs:
         status_options: '--untracked-files=no'
         tagging_message: "v${{ steps.current-time.outputs.formattedTime }}"
     - name: Create Release
-      if: ${{ github.event_name == 'schedule' }}
       run: gh release create "v${{ steps.current-time.outputs.formattedTime }}" --notes "v${{steps.current-time.outputs.formattedTime}}" *.csv
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      if: ${{ github.event_name == 'push' }}
-      with:
-        commit_message: Update ISIN Data
-        commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
-        file_pattern: "*.csv"
-        status_options: '--untracked-files=no'
