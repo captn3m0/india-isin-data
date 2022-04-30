@@ -1,5 +1,7 @@
 # India ISIN Data
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/captn3m0/india-isin-data) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/captn3m0/india-isin-data) ![GitHub repo size](https://img.shields.io/github/repo-size/captn3m0/india-isin-data)
+
 ISIN Data from various public securities.
 
 Source: [NSDL Website Detailed ISIN Search][nsdl].
