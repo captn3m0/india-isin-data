@@ -7,3 +7,5 @@ authors:
 title: "India ISIN Database, by Nemo"
 version: 2022.4.30
 url: "https://github.com/captn3m0/india-isin-database"
+preferred-citation:
+  type: data
