@@ -32,6 +32,9 @@ jobs:
         file_pattern: "*.csv"
         status_options: '--untracked-files=no'
         tagging_message: "v${{ steps.current-time.outputs.formattedTime }}"
+    - name: Create Release
+      if: ${{ github.event_name == 'schedule' }}
+      run: gh release create "v${{ steps.current-time.outputs.formattedTime }}" --notes "v${{steps.current-time.outputs.formattedTime}}" *.csv
     - uses: stefanzweifel/git-auto-commit-action@v4
       if: ${{ github.event_name == 'push' }}
       with:
