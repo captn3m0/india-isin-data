@@ -1,12 +1,18 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+message: "If you use this dataset, please cite it as below."
 authors:
 - family-names: "Rana"
   given-names: "Abhay"
-  orcid: " https://orcid.org/0000-0002-7993-1363"
+  orcid: https://orcid.org/0000-0002-7993-1363
 title: "India ISIN Database, by Nemo"
 version: 2022.4.30
 url: "https://github.com/captn3m0/india-isin-database"
 date-released: 2022-04-30
 preferred-citation:
+  url: "https://github.com/captn3m0/india-isin-database"
   type: data
+  authors:
+  - family-names: "Rana"
+    given-names: "Abhay"
+    orcid: "https://orcid.org/0000-0002-7993-1363"
+  title: "India ISIN Database, by Nemo"
