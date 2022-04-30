@@ -63,3 +63,6 @@ for i in E F 9; do
   # This is to avoid ISINs like INF955L01IN9 showing up under IN9
   sed -i '/^IN$i/!d' "IN$i.csv"
 done
+
+# Update CITATION
+git diff --quiet *.csv || (sed -i "s/^version.*/version: $1/" CITATION.cff && git add CITATION.cff)

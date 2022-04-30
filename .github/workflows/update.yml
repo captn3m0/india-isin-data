@@ -22,7 +22,7 @@ jobs:
         # Versioning is current date
         format: "YYYY.M.D"
     - name: Update data
-      run: ./fetch.sh
+      run: ./fetch.sh "${{ steps.current-time.outputs.formattedTime }}"
     # Only tag if we're running on the scheduled job
     - uses: stefanzweifel/git-auto-commit-action@v4
       if: ${{ github.event_name == 'schedule' }}
