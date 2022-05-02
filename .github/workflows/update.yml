@@ -3,7 +3,7 @@ on:
   schedule:
     # 18:07 UTC every day
     # 23:37 IST every day
-    - cron: '25 4 * * *'
+    - cron: '7 18 * * *'
 jobs:
   update:
     name: Update data
