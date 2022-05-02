@@ -24,4 +24,4 @@ jobs:
         status_options: '--untracked-files=no'
         tagging_message: "v${{ steps.update_data.outputs.version }}"
     - name: Create Release
-      run: gh release create "v${{ steps.update_data.outputs.version }}" --notes "v${{steps.update_data.outputs.version}}" *.csv && \
+      run: git diff --ignore-all-space -U0 HEAD^ *.csv|egrep -oe '^([+-]IN\w{10})' | gh release create "v${{ steps.update_data.outputs.version }}" --notes-file -
