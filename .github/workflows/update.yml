@@ -3,7 +3,7 @@ on:
   schedule:
     # 18:07 UTC every day
     # 23:37 IST every day
-    - cron: '7 18 * * *'
+    - cron: '25 4 * * *'
 jobs:
   update:
     name: Update data
@@ -12,14 +12,9 @@ jobs:
     - uses: actions/checkout@v3
       with:
         ref: ${{ github.head_ref }}
-    - name: Get current date
-      uses: josStorer/get-current-time@v2
-      id: current-time
-      with:
-        # Versioning is current date
-        format: "YYYY.M.D"
     - name: Update data
-      run: ./fetch.sh "${{ steps.current-time.outputs.formattedTime }}"
+      run: make all
+      id: update_data
     # Only tag if we're running on the scheduled job
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
@@ -27,6 +22,6 @@ jobs:
         commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
         file_pattern: "*.csv"
         status_options: '--untracked-files=no'
-        tagging_message: "v${{ steps.current-time.outputs.formattedTime }}"
+        tagging_message: "v${{ steps.update_data.outputs.version }}"
     - name: Create Release
-      run: gh release create "v${{ steps.current-time.outputs.formattedTime }}" --notes "v${{steps.current-time.outputs.formattedTime}}" *.csv && \
+      run: gh release create "v${{ steps.update_data.outputs.version }}" --notes "v${{steps.update_data.outputs.version}}" *.csv && \

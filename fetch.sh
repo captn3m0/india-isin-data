@@ -22,7 +22,8 @@ function fetch_page() {
     --connect-timeout 10 \
     --retry-max-time 30 \
     --data cnum=$1 \
-    --data "page_no=$2" | $PUP_BINARY '#nsdl-tables tr json{}' | \
+    --data "page_no=$2" | \
+  $PUP_BINARY '#nsdl-tables tr json{}' | \
   # generate 6 lines (second column has a link, so parse that) with raw output
   jq --raw-output '.[] | [.children[1].children[0].text, .children[2].text, .children[3].text,.children[4].text,.children[5].text]|.[]' | \
   # and create a CSV from every 5 lines
@@ -42,27 +43,26 @@ export -f fetch_page
 
 function fetch_class() {
   for i in $(seq 1 $2); do
+    echo fetch_page $1 $i "$1.csv"
     sem -j 10 --timeout 500% fetch_page $1 $i "$1.csv"
   done
 }
 
-for i in E F 9; do
-  total=$(fetch_total_pages "IN$i")
-  echo "::group::IN$i (Total=$total)"
-  rm "IN$i.csv"
-  fetch_class "IN$i" $total
-  echo "::endgroup::"
-done
+CLASS="$1"
+
+total=$(fetch_total_pages "$CLASS")
+echo "::group::$CLASS (Total=$total)"
+rm "$CLASS.csv"
+fetch_class "$CLASS" $total
+echo "::endgroup::"
 
 sem --wait
 
-for i in E F 9; do
-  # Sort the file in place
-  sort -o "IN$i.csv" "IN$i.csv"
-  # Remove lines that don't start with the correct prefix
-  # This is to avoid ISINs like INF955L01IN9 showing up under IN9
-  sed -i '/^IN$i/!d' "IN$i.csv"
-done
+# Sort the file in place
+sort -o "$CLASS.csv" "$CLASS.csv"
+# Remove lines that don't start with the correct prefix
+# This is to avoid ISINs like INF955L01IN9 showing up under IN9
+sed -i "/^$CLASS/!d" "$CLASS.csv"
 
 # Update CITATION
 if [[ $(git diff --stat *.csv) != '' ]]; then
