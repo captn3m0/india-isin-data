@@ -25,3 +25,5 @@ jobs:
         tagging_message: "v${{ steps.update_data.outputs.version }}"
     - name: Create Release
       run: git diff --ignore-all-space -U0 HEAD^ *.csv|egrep -oe '^([+-]IN\w{10})' | gh release create "v${{ steps.update_data.outputs.version }}" --notes-file -
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
