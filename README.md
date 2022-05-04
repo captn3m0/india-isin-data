@@ -39,4 +39,8 @@ You can run the `fetch.sh` script to generate the tracked the files from scratch
 - https://nsdl.co.in/downloadables/html/hold-mutual-fund-units.html
 - [The Kuvera Mutual Fund Details API](https://stoplight.captnemo.in/docs/kuvera/reference/Kuvera.yaml/paths/~1mf~1api~1v4~1fund_schemes~1%7Bcodes%7D.json/get) returns ISIN codes.
 
+# License
+
+Licensed under the [Creative Commons Zero v1.0 Universal](LICENSE) license. There are no guarantees made as to the correctness or accuracy of this data.
+
 [nsdl]: https://nsdl.co.in/master_search.php
