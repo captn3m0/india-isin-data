@@ -16,8 +16,9 @@ fi
 function fetch_page() {
   echo "[+] $1/$2"
   curl "https://nsdl.co.in/master_search_res.php" \
+    --no-progress-meter \
+    --write-out '%{stderr}DL  :%{size_download}\nHTTP:%{response_code} E(%{errormsg})\n' \
     --user-agent "Mozilla/Gecko/Firefox/58.0" \
-    --silent \
     --retry 3 \
     --connect-timeout 10 \
     --retry-max-time 30 \
