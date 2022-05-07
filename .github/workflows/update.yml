@@ -24,6 +24,12 @@ jobs:
         status_options: '--untracked-files=no'
         tagging_message: "v${{ steps.update_data.outputs.version }}"
     - name: Create Release
-      run: git diff --ignore-all-space -U0 HEAD^ *.csv|egrep -oe '^([+-]IN\w{10})' | gh release create "v${{ steps.update_data.outputs.version }}" --notes-file -
+      run: |
+        git diff --ignore-all-space -U0 HEAD^ *.csv|egrep -oe '^([+-]IN\w{10})' > /tmp/release.txt
+        echo "$(cat /tmp/release.txt | wc -l) Changes" > /tmp/release.md
+        echo '```diff' >> /tmp/release.md
+        cat /tmp/release.txt >> /tmp/release.md
+        echo '```' >> /tmp/release.md
+        gh release create "v${{ steps.update_data.outputs.version }}" --notes-file /tmp/release.md *.csv
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
