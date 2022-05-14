@@ -1,8 +1,8 @@
 # India ISIN Data
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6508187.svg)](https://doi.org/10.5281/zenodo.6508187) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/captn3m0/india-isin-data) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/captn3m0/india-isin-data) ![GitHub repo size](https://img.shields.io/github/repo-size/captn3m0/india-isin-data)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6508187.svg)](https://doi.org/10.5281/zenodo.6508187) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/captn3m0/india-isin-data) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/captn3m0/india-isin-data) ![GitHub repo size](https://img.shields.io/github/repo-size/captn3m0/india-isin-data) [![Flat GitHub Badge](https://img.shields.io/badge/View_Data_on-Flat_Github-GREEN.svg)](https://flatgithub.com/captn3m0/india-isin-data)
 
-ISIN Data from various public securities.
+ISIN Data from various public securities. You can sort and filter this dataset in your browset at https://flatgithub.com/captn3m0/india-isin-data.
 
 Source: [NSDL Website Detailed ISIN Search][nsdl].
 
@@ -15,7 +15,8 @@ Automatically updated every midnight (IST).
 `INE.csv`|Company, Statuatory Corporation, Banking Company|Yes
 `INF.csv`|Mutual Funds|Yes
 `IN9.csv`|Partly paid up shares|Yes
-`IN0.csv`|Government Securities|Yes
+`IN0.csv`|Central Government Securities|Yes
+`IN1.csv`, `IN2.csv`, `IN3.csv`, `IN4.csv`|State Government Securities|Yes
 
 **Note**: The [NSDL Website][nsdl] returns zero valid results for `INA, INB`, so those are not tracked.
 
@@ -214,7 +215,6 @@ ISINs for India can be found at a few other sources:
 - The [OpenFIGI API](https://www.openfigi.com/api) returns results for some (not all) Indian ISINs.
 - The National Stock Exchange has [a few](https://www1.nseindia.com/products/content/debt/wdm/gsec_reporting_homepage.htm) [pages](https://www1.nseindia.com/products/content/debt/ncbp/ncbp_issues.htm) listing Government Security ISINs.
 - Similarly, the Reserve Bank of India also lists Government Securities at a few pages: [[1]](https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=3876), [[2]](https://rbi.org.in/Scripts/bs_viewcontent.aspx?Id=1956), [[3](https://rbi.org.in/scripts/Bs_viewcontent.aspx?Id=3973)], [[4](https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=51712#AN1)], [[5](https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=52077)]. 
-
 
 # License
 
