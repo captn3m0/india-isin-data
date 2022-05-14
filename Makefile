@@ -5,6 +5,17 @@ all: INE INF IN9 update
 INE INF IN9:
 	./fetch.sh $@
 
+old:
+	git show HEAD^:INE.csv > /tmp/INE.csv
+	git show HEAD^:INF.csv > /tmp/INF.csv
+	git show HEAD^:IN9.csv > /tmp/IN9.csv
+
+release.md: old
+	python3 diff.py > release.md
+
+release: release.md
+	gh release create "$(version)" --notes-file release.md IN*.csv
+
 update:
 	echo "::set-output name=version::$(version)"
 	sed -i "s/^version.*/version: $(version)/" CITATION.cff

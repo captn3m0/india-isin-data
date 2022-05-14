@@ -40,14 +40,14 @@
           },
           {
             "description": "Description for the security",
-            "example": "ITI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "example": "UTI MUTUAL FUND LIQUID FUND REG GROWTH",
             "name": "Description",
-            "title": "ISIN Description",
+            "title": "Security Description",
             "type": "string"
           },
           {
             "description": "Name of the issuer that issued this security",
-            "example": "ITI MUTUAL FUND",
+            "example": "UTI MUTUAL FUND",
             "name": "Issuer",
             "title": "Name of the Issuer",
             "type": "string"
@@ -56,7 +56,7 @@
             "description": "Description of the type of security",
             "example": "MUTUAL FUND UNIT (TRASE)",
             "name": "Type",
-            "title": "Security Type",
+            "title": "Issuer Type",
             "type": "string"
           },
           {
@@ -88,14 +88,14 @@
           },
           {
             "description": "Description for the security",
-            "example": "ITI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "example": "UTI MUTUAL FUND LIQUID FUND REG GROWTH",
             "name": "Description",
-            "title": "ISIN Description",
+            "title": "Security Description",
             "type": "string"
           },
           {
             "description": "Name of the issuer that issued this security",
-            "example": "ITI MUTUAL FUND",
+            "example": "UTI MUTUAL FUND",
             "name": "Issuer",
             "title": "Name of the Issuer",
             "type": "string"
@@ -104,7 +104,7 @@
             "description": "Description of the type of security",
             "example": "MUTUAL FUND UNIT (TRASE)",
             "name": "Type",
-            "title": "Security Type",
+            "title": "Issuer Type",
             "type": "string"
           },
           {
@@ -136,14 +136,14 @@
           },
           {
             "description": "Description for the security",
-            "example": "ITI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "example": "UTI MUTUAL FUND LIQUID FUND REG GROWTH",
             "name": "Description",
-            "title": "ISIN Description",
+            "title": "Security Description",
             "type": "string"
           },
           {
             "description": "Name of the issuer that issued this security",
-            "example": "ITI MUTUAL FUND",
+            "example": "UTI MUTUAL FUND",
             "name": "Issuer",
             "title": "Name of the Issuer",
             "type": "string"
@@ -152,7 +152,7 @@
             "description": "Description of the type of security",
             "example": "MUTUAL FUND UNIT (TRASE)",
             "name": "Type",
-            "title": "Security Type",
+            "title": "Issuer Type",
             "type": "string"
           },
           {
