@@ -112,7 +112,7 @@ In the above ISIN (`INF789F01XA0`), here's the breakdown:
 
 ### Isser Types
 
-Issuer Type|3rd Character
+Issuer Type|Isser Type Code
 -----------|-------------
 Central Government|`A`
 State Government|`B`
@@ -129,23 +129,46 @@ Please see `issuers.csv` (🚧)
 
 ### Security Type
 
-TODO: This is missing a few values.
+The security type is defined in the 8th and 9th character of the ISIN code. The same security type code can have different meanings against different issuers.
 
-|   Code   |   Security Type            |
-|----------|----------------------------|
-|   01     |   Equity Shares            |
-|   02     |   Postal Savings Scheme    |
-|   03     |   Preference Shares        |
-|   04     |   Bonds                    |
-|   05     |   Deep Discount Bonds      |
-|   06     |   Floating Rate Boands     |
-|   07     |   Commercial Papers        |
-|   08     |   Step Discount Bonds      |
-|   09     |   Regular Return Bonds     |
-|   10     |   Certificate of Deposits  |
-|   11     |   Securitised Instruments  |
-|   12     |   Debentures               |
+This table is based on analysis done on real data. A lot of categories (such as Bonds) are fluid, and the exact description in the dataset might not match the security type in this table (As an example the dataset might state "Deep Discount Bond" instead of "Bond". Note that some other sources on the Internet might differ with this table. If you find a ISIN that does not fit in the following table correctly, please create an issue with the ISIN.
 
+Issuer Type | Security Type Code  |   Security Type
+------------|--------|-----------------
+Company (`INE`) | 01     |   Equity Share
+Company (`IN9`) | 01     |   Equity Share
+Mutual Fund (`INF`) | 01 |   Mutual Fund Unit
+Company (`INE`) | 02     |   Postal Savings Scheme
+Company (`INE`) | 03     |   Preference Share
+Company (`IN9`) | 03     |   Preference Share
+Company (`INE`) | 04     |   Preference Share
+Company (`IN9`) | 04     |   Preference Share
+Company (`INE`) | 05     |   Deep Discount Bond
+Company (`INE`) | 06     |   Floating Rate Bond
+Company (`INE`) | 07     |   Bond / Debenture
+Company (`INE`) | 08     |   Bond / Debenture
+Company (`INE`) | 09     |   Bond / Debenture
+Company (`INE`) | 10     |   Floating Rate Bond
+Company (`INE`) | 11     |   Bonds
+Company (`INE`) | 13     |   Warrants
+Company (`INE`) | 14     |   Commercial Paper
+Company (`INE`) | 15     |   Securitised Instrument
+Company (`INE`) | 16     |   Certificate of Deposit
+Company (`INE`) | 18     |   Securitised Instrument
+Company (`IN9`) | 19     |   Mutual Fund Unit
+Company (`INF`) | 19     |   Mutual Fund Unit
+Mutual Fund (`INF`) | 1A |   Mutual Fund Unit
+Company (`INE`) | 20     |   Rights Entitlement
+Company (`INE`) | 21     |   Indian Depository Receipt
+Mutual Fund (`INF`) | 22 |   Alternate Investment Fund
+Company (`INE`) | 23     |   Infrastructure Investment Trust
+Company (`INE`) | 24     |   Municipal Bond
+Company (`INE`) | 25     |   Real Estate Investment Trusts
+Mutual Fund (`INF`) | A1 |   Mutual Fund Unit
+Company (`INE`) | A7     |   Debenture
+Mutual Fund (`INF`) | B1 |   Mutual Fund Unit
+Company (`INE`) | B7     |   Debenture
+Mutual Fund (`INF`) | C1 |   Mutual Fund Unit
 
 ### Check Digit
 
@@ -182,7 +205,9 @@ ISINs for India can be found at a few other sources:
 
 - https://nsdl.co.in/downloadables/html/hold-mutual-fund-units.html
 - [The Kuvera Mutual Fund Details API](https://stoplight.captnemo.in/docs/kuvera/reference/Kuvera.yaml/paths/~1mf~1api~1v4~1fund_schemes~1%7Bcodes%7D.json/get) returns ISIN codes.
-- The [OpenFIGI API](https://www.openfigi.com/api)
+- The [OpenFIGI API](https://www.openfigi.com/api) returns results for some (not all) Indian ISINs.
+- The National Stock Exchange has [a few](https://www1.nseindia.com/products/content/debt/wdm/gsec_reporting_homepage.htm) [pages](https://www1.nseindia.com/products/content/debt/ncbp/ncbp_issues.htm) listing Government Security ISINs.
+- Similarly, the Reserve Bank of India also lists Government Securities at a few pages: [[1]](https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=3876), [[2]](https://rbi.org.in/Scripts/bs_viewcontent.aspx?Id=1956), [[3](https://rbi.org.in/scripts/Bs_viewcontent.aspx?Id=3973)], [[4](https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=51712#AN1)], [[5](https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=52077)]. 
 
 
 # License
