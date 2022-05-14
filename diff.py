@@ -11,7 +11,7 @@ def chunks(lst, n):
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
 
-for i in ['E', 'F', '9']:
+for i in ['E', 'F', '9', '0', '1', '2', '3', '4']:
     diff = compare(
         load_csv(open("/tmp/IN%s.csv" % i), key="ISIN"),
         load_csv(open("IN%s.csv" % i), key="ISIN"),

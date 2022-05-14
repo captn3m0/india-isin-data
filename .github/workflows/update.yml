@@ -20,8 +20,8 @@ jobs:
       with:
         commit_message: Update ISIN Data
         commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
-        file_pattern: "*.csv"
-        status_options: '--untracked-files=no'
+        file_pattern: "IN*.csv"
+        status_options: '--untracked-files=yes'
         tagging_message: "v${{ steps.update_data.outputs.version }}"
     - name: Create Release
       run: |

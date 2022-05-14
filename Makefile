@@ -1,14 +1,20 @@
 SHELL=/bin/bash
 version=`date +%Y.%-m.%-d`
 
-all: INE INF IN9 update
-INE INF IN9:
+all: INE INF IN9 IN0 IN1 IN2 IN3 IN4 update
+
+INE INF IN9 IN0 IN1 IN2 IN3 IN4:
 	./fetch.sh $@
 
 old:
 	git show HEAD^:INE.csv > /tmp/INE.csv
 	git show HEAD^:INF.csv > /tmp/INF.csv
 	git show HEAD^:IN9.csv > /tmp/IN9.csv
+	git show HEAD^:IN0.csv > /tmp/IN0.csv
+	git show HEAD^:IN1.csv > /tmp/IN1.csv
+	git show HEAD^:IN2.csv > /tmp/IN2.csv
+	git show HEAD^:IN3.csv > /tmp/IN3.csv
+	git show HEAD^:IN4.csv > /tmp/IN4.csv
 
 release.md: old
 	python3 diff.py > release.md

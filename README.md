@@ -15,6 +15,7 @@ Automatically updated every midnight (IST).
 `INE.csv`|Company, Statuatory Corporation, Banking Company|Yes
 `INF.csv`|Mutual Funds|Yes
 `IN9.csv`|Partly paid up shares|Yes
+`IN0.csv`|Government Securities|Yes
 
 **Note**: The [NSDL Website][nsdl] returns zero valid results for `INA, INB`, so those are not tracked.
 
@@ -121,6 +122,11 @@ Union Territories|`D`
 Company, Statuatory Corporation, Banking Company|`E`
 Mutual Funds|`F`
 Partly Paidup Shares|`G`
+Central Government Security|`0`
+State Government Security|`1`
+State Government Security|`2`
+State Government Security|`3`
+State Government Security|`4`
 
 ### Issuer Code
 

@@ -164,7 +164,247 @@
           }
         ]
       },
-      "title": "India ISIN (Company, Statuatory Corporation, Banking Company)"
+      "title": "India ISIN (Partly Paid up shares)"
+    },
+    {
+      "description": "Indian ISINs for Central Government Securities. These are ISINs starting with IN0.",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "india-isin-in0",
+      "path": "IN0.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "ISIN code for the security",
+            "example": "INF00XX01093",
+            "name": "ISIN",
+            "title": "ISIN Code",
+            "type": "string"
+          },
+          {
+            "description": "Description for the security",
+            "example": "UTI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "name": "Description",
+            "title": "Security Description",
+            "type": "string"
+          },
+          {
+            "description": "Name of the issuer that issued this security",
+            "example": "UTI MUTUAL FUND",
+            "name": "Issuer",
+            "title": "Name of the Issuer",
+            "type": "string"
+          },
+          {
+            "description": "Description of the type of security",
+            "example": "MUTUAL FUND UNIT (TRASE)",
+            "name": "Type",
+            "title": "Issuer Type",
+            "type": "string"
+          },
+          {
+            "description": "ISIN Status (such as Deleted, Active, Suspended)",
+            "example": "ACTIVE",
+            "name": "Status",
+            "title": "Security Status",
+            "type": "string"
+          }
+        ]
+      },
+      "title": "India ISIN (Central Government Securities)"
+    },
+    {
+      "description": "Indian ISINs for State Government Securities. These are ISINs starting with IN1.",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "india-isin-in1",
+      "path": "IN1.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "ISIN code for the security",
+            "example": "INF00XX01093",
+            "name": "ISIN",
+            "title": "ISIN Code",
+            "type": "string"
+          },
+          {
+            "description": "Description for the security",
+            "example": "UTI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "name": "Description",
+            "title": "Security Description",
+            "type": "string"
+          },
+          {
+            "description": "Name of the issuer that issued this security",
+            "example": "UTI MUTUAL FUND",
+            "name": "Issuer",
+            "title": "Name of the Issuer",
+            "type": "string"
+          },
+          {
+            "description": "Description of the type of security",
+            "example": "MUTUAL FUND UNIT (TRASE)",
+            "name": "Type",
+            "title": "Issuer Type",
+            "type": "string"
+          },
+          {
+            "description": "ISIN Status (such as Deleted, Active, Suspended)",
+            "example": "ACTIVE",
+            "name": "Status",
+            "title": "Security Status",
+            "type": "string"
+          }
+        ]
+      },
+      "title": "India ISIN (State Government Securities)"
+    },
+    {
+      "description": "Indian ISINs for State Government Securities. These are ISINs starting with IN2.",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "india-isin-in2",
+      "path": "IN2.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "ISIN code for the security",
+            "example": "INF00XX01093",
+            "name": "ISIN",
+            "title": "ISIN Code",
+            "type": "string"
+          },
+          {
+            "description": "Description for the security",
+            "example": "UTI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "name": "Description",
+            "title": "Security Description",
+            "type": "string"
+          },
+          {
+            "description": "Name of the issuer that issued this security",
+            "example": "UTI MUTUAL FUND",
+            "name": "Issuer",
+            "title": "Name of the Issuer",
+            "type": "string"
+          },
+          {
+            "description": "Description of the type of security",
+            "example": "MUTUAL FUND UNIT (TRASE)",
+            "name": "Type",
+            "title": "Issuer Type",
+            "type": "string"
+          },
+          {
+            "description": "ISIN Status (such as Deleted, Active, Suspended)",
+            "example": "ACTIVE",
+            "name": "Status",
+            "title": "Security Status",
+            "type": "string"
+          }
+        ]
+      },
+      "title": "India ISIN (State Government Securities - 2)"
+    },
+    {
+      "description": "Indian ISINs for State Government Securities. These are ISINs starting with IN3.",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "india-isin-in3",
+      "path": "IN3.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "ISIN code for the security",
+            "example": "INF00XX01093",
+            "name": "ISIN",
+            "title": "ISIN Code",
+            "type": "string"
+          },
+          {
+            "description": "Description for the security",
+            "example": "UTI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "name": "Description",
+            "title": "Security Description",
+            "type": "string"
+          },
+          {
+            "description": "Name of the issuer that issued this security",
+            "example": "UTI MUTUAL FUND",
+            "name": "Issuer",
+            "title": "Name of the Issuer",
+            "type": "string"
+          },
+          {
+            "description": "Description of the type of security",
+            "example": "MUTUAL FUND UNIT (TRASE)",
+            "name": "Type",
+            "title": "Issuer Type",
+            "type": "string"
+          },
+          {
+            "description": "ISIN Status (such as Deleted, Active, Suspended)",
+            "example": "ACTIVE",
+            "name": "Status",
+            "title": "Security Status",
+            "type": "string"
+          }
+        ]
+      },
+      "title": "India ISIN (State Government Securities - 3)"
+    },
+    {
+      "description": "Indian ISINs for State Government Securities. These are ISINs starting with IN4.",
+      "encoding": "utf-8",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "name": "india-isin-in4",
+      "path": "IN4.csv",
+      "schema": {
+        "fields": [
+          {
+            "description": "ISIN code for the security",
+            "example": "INF00XX01093",
+            "name": "ISIN",
+            "title": "ISIN Code",
+            "type": "string"
+          },
+          {
+            "description": "Description for the security",
+            "example": "UTI MUTUAL FUND LIQUID FUND REG GROWTH",
+            "name": "Description",
+            "title": "Security Description",
+            "type": "string"
+          },
+          {
+            "description": "Name of the issuer that issued this security",
+            "example": "UTI MUTUAL FUND",
+            "name": "Issuer",
+            "title": "Name of the Issuer",
+            "type": "string"
+          },
+          {
+            "description": "Description of the type of security",
+            "example": "MUTUAL FUND UNIT (TRASE)",
+            "name": "Type",
+            "title": "Issuer Type",
+            "type": "string"
+          },
+          {
+            "description": "ISIN Status (such as Deleted, Active, Suspended)",
+            "example": "ACTIVE",
+            "name": "Status",
+            "title": "Security Status",
+            "type": "string"
+          }
+        ]
+      },
+      "title": "India ISIN (State Government Securities - 4)"
     }
   ],
   "sources": [
