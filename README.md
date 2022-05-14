@@ -18,6 +18,154 @@ Automatically updated every midnight (IST).
 
 **Note**: The [NSDL Website][nsdl] returns zero valid results for `INA, INB`, so those are not tracked.
 
+# ISIN Structure
+
+ISIN (Internation Security Identification Numbering System) is defined by [ISO 6166:2021][iso] and adopted in India by BIS as [IS 15415:2021][bis] ([(PDF)][bispdf]) ([(PDF2)](https://archive.org/details/gov.in.is.15415.2003)). ISINs in India are [alloted by NSDL for all securities except Government Securities](https://investor.sebi.gov.in/pdf/reference-material/ppt/PPT-7%20Depository%20Services.pdf) (See Page 9).
+
+> This Indian Standard (Second Revision) which is identical with ISO 6166 : 2021 ‘Financial services - International securities identification number (ISIN)’ issued by the International Organization for Standardization (ISO) was adopted by the Bureau of Indian Standards on recommendation of the Banking and Financial Services Sectional Committee and approval of the Services Sector Division Council.
+
+ISIN, as per the ISO standard consists of 3 parts:
+
+1. 2 Character country code as prefix (ISO-3166). For ISINs issued in India, this will always be `IN`.
+2. The Basic Number, 9 alphanumeric characters left padded with zeroes.
+3. A check digit.
+
+The basic number in India is issued by NSDL and is composed of 4 parts:
+
+1. 1 Character for the kind of issuer. This varies from A-F/9.
+1. A 4 character Issuer Code. Alphanumeric.
+1. A 2 Character code for security type. Alphanumeric.
+1. A 2 Digit serial number for the security itself. Alphanumeric.
+
+Hence, each issuer can issue 36^2 = 1296 securities under each type. The table below explains the same with an example:
+
+<div>
+<table>
+	<tbody>
+		<tr>
+            <th>Field</th>
+			<td colspan="2" style="text-align: center">Country Code</td>
+			<td style="text-align: center">Issuer Type</td>
+			<td style="text-align: center" colspan="4">Issuer Code</td>
+			<td style="text-align: center" colspan="2">Security Type</td>
+			<td style="text-align: center" colspan="2">Serial Number</td>
+			<td style="text-align: center">Check Digit</td>
+		</tr>
+		<tr>
+            <th>Index</th>
+			<td style="text-align: center"><code>1</code></td>
+			<td style="text-align: center"><code>2</code></td>
+			<td style="text-align: center"><code>3</code></td>
+			<td style="text-align: center"><code>4</code></td>
+			<td style="text-align: center"><code>5</code></td>
+			<td style="text-align: center"><code>6</code></td>
+			<td style="text-align: center"><code>7</code></td>
+			<td style="text-align: center"><code>8</code></td>
+			<td style="text-align: center"><code>9</code></td>
+			<td style="text-align: center"><code>10</code></td>
+			<td style="text-align: center"><code>11</code></td>
+			<td style="text-align: center"><code>12</code></td>
+		</tr>
+		<tr>
+            <th>Class</th>
+			<td style="text-align: center"><code>I</code></td>
+			<td style="text-align: center"><code>N</code></td>
+			<td style="text-align: center"><code>A-F,9</code></td>
+			<td style="text-align: center"><code>alpha</code></td>
+			<td style="text-align: center"><code>alpha</code></td>
+			<td style="text-align: center"><code>alpha</code></td>
+			<td style="text-align: center"><code>alpha</code></td>
+			<td style="text-align: center"><code>alpha</code></td>
+			<td style="text-align: center"><code>alpha</code></td>
+			<td style="text-align: center"><code>alpha</code></td>
+			<td style="text-align: center"><code>alpha</code></td>
+			<td style="text-align: center"><code>0-9</code></td>
+		</tr>
+		<tr>
+			<!-- IN F 789F 01 XA 0 -->
+            <th>Sample</th>
+			<td style="text-align: center"><code>I</code></td>
+			<td style="text-align: center"><code>N</code></td>
+			<td style="text-align: center"><code>F</code></td>
+			<td style="text-align: center"><code>7</code></td>
+			<td style="text-align: center"><code>8</code></td>
+			<td style="text-align: center"><code>9</code></td>
+			<td style="text-align: center"><code>F</code></td>
+			<td style="text-align: center"><code>0</code></td>
+			<td style="text-align: center"><code>1</code></td>
+			<td style="text-align: center"><code>X</code></td>
+			<td style="text-align: center"><code>A</code></td>
+			<td style="text-align: center"><code>0</code></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+In the above ISIN (`INF789F01XA0`), here's the breakdown:
+
+- Country Code: `IN`
+- Issuer Type: `F` (Mutual Funds)
+- Issuer Code: `789F` (UTI Mutual Fund)
+- Security Type: `01` (Equity Shares)
+- Serial Number: `XA`
+- Check Digit: `0`
+
+### Isser Types
+
+Issuer Type|3rd Character
+-----------|-------------
+Central Government|`A`
+State Government|`B`
+Municipal Corporation|`C`
+Union Territories|`D`
+Company, Statuatory Corporation, Banking Company|`E`
+Mutual Funds|`F`
+Partly Paidup Shares|`G`
+
+### Issuer Code
+
+Please see `issuers.csv` (🚧)
+
+
+### Security Type
+
+TODO: This is missing a few values.
+
+|   Code   |   Security Type            |
+|----------|----------------------------|
+|   01     |   Equity Shares            |
+|   02     |   Postal Savings Scheme    |
+|   03     |   Preference Shares        |
+|   04     |   Bonds                    |
+|   05     |   Deep Discount Bonds      |
+|   06     |   Floating Rate Boands     |
+|   07     |   Commercial Papers        |
+|   08     |   Step Discount Bonds      |
+|   09     |   Regular Return Bonds     |
+|   10     |   Certificate of Deposits  |
+|   11     |   Securitised Instruments  |
+|   12     |   Debentures               |
+
+
+### Check Digit
+
+The last digit (check-digit) is calculated using the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) with a slight change to accomodate alphanumeric characters. Alphabets are converted to digits by adding `9` to the usual numeric value of each letter. For example `A=10,B=12,C=13……Z=35`. A few examples:
+
+ISIN|Payload|Check Digit|Validate
+----|-------|--------|---
+`INE009A01021`|`18 23 14 009 10 0102`|`1`|[CyberChef](https://gchq.github.io/CyberChef/#recipe=Remove_whitespace%28%29Luhn_Checksum%28%29&input=MTggMjMgMTQgMDA5IDEwIDAxMDI)
+`US0378331005`|`30 28 0378331001`|`5`|[CyberChef](https://gchq.github.io/CyberChef/#recipe=Remove_whitespace%28%29Luhn_Checksum%28%29&input=MzAgMjggMDM3ODMzMTAwMQ)
+`AU0000XVGZA3`|`10 30 0000 33 31 16 35 10`|`3`|[CyberChef](https://gchq.github.io/CyberChef/#recipe=Remove_whitespace%28%29Luhn_Checksum%28%29&input=MTAgMzAgMDAwMCAzMyAzMSAxNiAzNSAxMA)
+`INF789F01XA0`|`18 23 15 789 15 01 33 10`|`0`|[CyberChef](https://gchq.github.io/CyberChef/#recipe=Remove_whitespace%28%29Luhn_Checksum%28%29&input=MTggMjMgMTUgNzg5IDE1IDAxIDMzIDEw)
+
+### References:
+
+- https://www.basunivesh.com/how-your-dmat-mutual-funds-and-shares-isin-structured/
+- https://theindianstockbrokers.com/what-is-isin-number-and-how-to-find-it/
+- https://en.wikipedia.org/wiki/International_Securities_Identification_Number
+- [ISO 6166][bispdf], Annex A.
+
+
 # Code
 
 You can run the `fetch.sh` script to generate the tracked the files from scratch. Dependencies:
@@ -28,19 +176,20 @@ You can run the `fetch.sh` script to generate the tracked the files from scratch
 - https://curl.se/
 - https://www.gnu.org/software/sed/
 
-# Structure
-
-- https://www.basunivesh.com/how-your-dmat-mutual-funds-and-shares-isin-structured/
-- https://theindianstockbrokers.com/what-is-isin-number-and-how-to-find-it/
-
-
 # Alternative Sources
+
+ISINs for India can be found at a few other sources:
 
 - https://nsdl.co.in/downloadables/html/hold-mutual-fund-units.html
 - [The Kuvera Mutual Fund Details API](https://stoplight.captnemo.in/docs/kuvera/reference/Kuvera.yaml/paths/~1mf~1api~1v4~1fund_schemes~1%7Bcodes%7D.json/get) returns ISIN codes.
+- The [OpenFIGI API](https://www.openfigi.com/api)
+
 
 # License
 
 Licensed under the [Creative Commons Zero v1.0 Universal](LICENSE) license. There are no guarantees made as to the correctness or accuracy of this data.
 
 [nsdl]: https://nsdl.co.in/master_search.php
+[iso]: https://www.iso.org/standard/78502.html
+[bis]: https://www.services.bis.gov.in/php/BIS_2.0/bisconnect/ISL/is_details?IDS=NzUxNg%3D%3D
+[bispdf]: https://law.resource.org/pub/in/bis/S07/is.15415.2003.pdf
