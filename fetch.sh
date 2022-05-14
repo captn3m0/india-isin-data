@@ -17,11 +17,11 @@ function fetch_page() {
   echo "[+] $1/$2"
   curl "https://nsdl.co.in/master_search_res.php" \
     --no-progress-meter \
-    --write-out '%{stderr}DL  :%{size_download}\nHTTP:%{response_code} E(%{errormsg})\n' \
+    --write-out '%{stderr}DL  :%{size_download}\nHTTP:%{response_code}\n' \
     --user-agent "Mozilla/Gecko/Firefox/58.0" \
-    --retry 3 \
-    --connect-timeout 10 \
-    --retry-max-time 30 \
+    --retry 10 \
+    --connect-timeout 30 \
+    --retry-max-time 100 \
     --data cnum=$1 \
     --data "page_no=$2" | \
   $PUP_BINARY '#nsdl-tables tr json{}' | \
