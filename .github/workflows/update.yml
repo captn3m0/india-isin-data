@@ -1,5 +1,6 @@
 name: Update Data
 on:
+  push:
   schedule:
     # 18:07 UTC every day
     # 23:37 IST every day
@@ -21,7 +22,7 @@ jobs:
         commit_message: Update ISIN Data
         commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
         file_pattern: "IN*.csv"
-        status_options: '--untracked-files=yes'
+        status_options: '--untracked-files=normal'
         tagging_message: "v${{ steps.update_data.outputs.version }}"
     - name: Create Release
       run: |
