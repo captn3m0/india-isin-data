@@ -53,7 +53,6 @@ CLASS="$1"
 
 total=$(fetch_total_pages "$CLASS")
 echo "::group::$CLASS (Total=$total)"
-cp header.csv "$CLASS.csv"
 fetch_class "$CLASS" $total
 echo "::endgroup::"
 
@@ -64,6 +63,10 @@ sort -o "$CLASS.csv" "$CLASS.csv"
 # Remove lines that don't start with the correct prefix
 # This is to avoid ISINs like INF955L01IN9 showing up under IN9
 sed -i "/^$CLASS/!d" "$CLASS.csv"
+
+# Now add a header
+cat header.csv $CLASS.csv > tmp.csv
+mv tmp.csv $CLASS.csv
 
 # Update CITATION
 if [[ $(git diff --stat *.csv) != '' ]]; then
