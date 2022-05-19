@@ -51,7 +51,7 @@ CLASS="$1"
 
 total=$(fetch_total_pages "$CLASS")
 echo "::group::$CLASS (Total=$total)"
-rm "$CLASS.csv"
+rm -f "$CLASS.csv"
 fetch_class "$CLASS" $total
 echo "::endgroup::"
 
