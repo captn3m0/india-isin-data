@@ -188,7 +188,15 @@ ISIN|Payload|Check Digit|Validate
 
 # Code
 
-You can run the `fetch.sh` script to generate the tracked the files from scratch. Dependencies:
+You can run the following to generate the `ISIN.csv` file from scratch:
+
+```
+git clone https://github.com/captn3m0/india-isin-data.git
+make check
+make ISIN
+```
+
+## Dependencies:
 
 - https://github.com/ericchiang/pup
 - https://stedolan.github.io/jq/

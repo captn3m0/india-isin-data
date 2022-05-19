@@ -26,7 +26,7 @@ jobs:
         tagging_message: "v${{ steps.update_data.outputs.version }}"
     - name: Create Release
       run: |
-        pip install -r requirements.txt
+        pip install -r src/requirements.txt
         make release "version=v${{ steps.update_data.outputs.version }}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

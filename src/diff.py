@@ -2,7 +2,7 @@ from csv_diff import load_csv, compare
 import json
 from mako.template import Template
 
-template = Template(filename='release.mako')
+template = Template(filename='src/release.mako')
 
 added,removed,changed = [],[],[]
 

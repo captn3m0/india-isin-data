@@ -1,14 +1,21 @@
 SHELL=/bin/bash
 version=`date +%Y.%-m.%-d`
 
-# Build Process
+.SILENT:
 
+check:
+	for cmd in pup jq parallel curl sed;do \
+		command -v $$cmd >/dev/null 2>&1 || { echo >&2 "I require $$cmd but it's not installed.  Aborting."; exit 1; }; \
+	done
+
+# Build Process
 ISIN: INE INF IN9 IN0 IN1 IN2 IN3 IN4
 	cat header.csv IN*.csv > ISIN.csv
 	rm IN*.csv
 
 INE INF IN9 IN0 IN1 IN2 IN3 IN4:
-	./fetch.sh $@
+	./src/fetch.sh $@
+
 update: ISIN
 	echo "::set-output name=version::$(version)"
 	sed -i "s/^version.*/version: $(version)/" CITATION.cff
@@ -24,7 +31,7 @@ old:
 	git show HEAD^:ISIN.csv > /tmp/ISIN.csv
 
 release.md: old
-	python3 diff.py > release.md
+	python3 src/diff.py > release.md
 
 release: release.md
 	gh release create "$(version)" --notes-file release.md ISIN.csv
