@@ -10,7 +10,7 @@ check:
 
 # Build Process
 ISIN: INE INF IN9 IN0 IN1 IN2 IN3 IN4
-	cat header.csv IN*.csv > ISIN.csv
+	cat src/header.csv IN*.csv > ISIN.csv
 	rm IN*.csv
 
 INE INF IN9 IN0 IN1 IN2 IN3 IN4:

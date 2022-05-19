@@ -6,7 +6,7 @@ if ! command -v pup &> /dev/null
 then
   wget --quiet https://github.com/ericchiang/pup/releases/download/v0.4.0/pup_v0.4.0_linux_amd64.zip -O pup.zip
   echo "ec3d29e9fb375b87ac492c8b546ad6be84b0c0b49dab7ff4c6b582eac71ba01c  pup.zip" | sha256sum --strict --check
-  unzip pup.zip
+  unzip -o pup.zip
   rm pup.zip
   chmod +x ./pup
   export PUP_BINARY="$(pwd)/pup"
