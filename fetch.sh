@@ -43,7 +43,6 @@ export -f fetch_page
 
 function fetch_class() {
   for i in $(seq 1 $2); do
-    echo fetch_page $1 $i "$1.csv"
     sem -j 10 --timeout 500% fetch_page $1 $i "$1.csv"
   done
 }

@@ -8,16 +8,6 @@ Source: [NSDL Website Detailed ISIN Search][nsdl].
 
 Automatically updated every midnight (IST).
 
-|File|Issuer|Tracked|
------|-----|----|
-`INA.csv`|Central Government|No
-`INB.csv`|State Government|No
-`INE.csv`|Company, Statuatory Corporation, Banking Company|Yes
-`INF.csv`|Mutual Funds|Yes
-`IN9.csv`|Partly paid up shares|Yes
-`IN0.csv`|Central Government Securities|Yes
-`IN1.csv`, `IN2.csv`, `IN3.csv`, `IN4.csv`|State Government Securities|Yes
-
 **Note**: The [NSDL Website][nsdl] returns zero valid results for `INA, INB`, so those are not tracked.
 
 # ISIN Structure
