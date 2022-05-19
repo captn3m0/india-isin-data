@@ -14,15 +14,15 @@ jobs:
       with:
         ref: ${{ github.head_ref }}
     - name: Update data
-      run: make all
+      run: make update
       id: update_data
     # Only tag if we're running on the scheduled job
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: Update ISIN Data
         commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
-        file_pattern: "IN*.csv"
-        status_options: '--untracked-files=normal'
+        file_pattern: "ISIN.csv"
+        status_options: '--untracked-files=no'
         tagging_message: "v${{ steps.update_data.outputs.version }}"
     - name: Create Release
       run: |

@@ -17,7 +17,6 @@ function fetch_page() {
   echo "[+] $1/$2"
   curl "https://nsdl.co.in/master_search_res.php" \
     --no-progress-meter \
-    --write-out '%{stderr}DL  :%{size_download}\nHTTP:%{response_code}\n' \
     --user-agent "Mozilla/Gecko/Firefox/58.0" \
     --retry 10 \
     --connect-timeout 30 \
@@ -53,6 +52,7 @@ CLASS="$1"
 
 total=$(fetch_total_pages "$CLASS")
 echo "::group::$CLASS (Total=$total)"
+rm "$CLASS.csv"
 fetch_class "$CLASS" $total
 echo "::endgroup::"
 
@@ -63,17 +63,3 @@ sort -o "$CLASS.csv" "$CLASS.csv"
 # Remove lines that don't start with the correct prefix
 # This is to avoid ISINs like INF955L01IN9 showing up under IN9
 sed -i "/^$CLASS/!d" "$CLASS.csv"
-
-# Now add a header
-cat header.csv $CLASS.csv > tmp.csv
-mv tmp.csv $CLASS.csv
-
-# Update CITATION
-if [[ $(git diff --stat *.csv) != '' ]]; then
-  sed -i "s/^version.*/version: $1/" CITATION.cff
-  sed -i "s/^date-released.*/date-released: $(date --rfc-3339=date)/" CITATION.cff
-
-  jq ".version = \"$1\" | .created = \"$(date --rfc-3339=seconds)\"" datapackage.json > d2.json
-  mv d2.json datapackage.json
-  git add CITATION.cff datapackage.json
-fi
