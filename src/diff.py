@@ -12,8 +12,8 @@ def chunks(lst, n):
         yield lst[i:i + n]
 
 diff = compare(
-    load_csv(open("/tmp/ISIN.csv" % i), key="ISIN"),
-    load_csv(open("ISIN.csv" % i), key="ISIN"),
+    load_csv(open("/tmp/ISIN.csv"), key="ISIN"),
+    load_csv(open("ISIN.csv"), key="ISIN"),
     True
 )
 
