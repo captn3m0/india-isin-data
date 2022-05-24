@@ -19,6 +19,7 @@ ${row['changes']['Description'][1]}
 %endif
 </%def>
 
+% if len(added) > 0
 <h2>Additions</h2>
 
 The following new ISINs were added:
@@ -29,6 +30,10 @@ ISIN|Description|Issuer|Type|Status
 `${row['ISIN']}`|${row['Description']}|${row['Issuer']}|${row['Type']}|${row['Status'].title()}
 % endfor
 
+%endif
+
+
+% if len(changed) > 0
 <h2>Changes</h2>
 
 The following ISINs changed their status:
@@ -56,8 +61,6 @@ The following ISINs changed their status:
 </tbody>
 </table>
 
-## This will usually contain the description
-
 The following ISINs changed other fields:
 
 ```diff
@@ -68,7 +71,9 @@ ${singlediff(row)}
 % endfor
 ```
 
-## Removals are currently happening accidentally because NSDL website returns a 5xx
+%endif
+
+## Removals may happen accidentally because NSDL website returns a 5xx
 
 %if len(removed) > 0:
 
