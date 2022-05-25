@@ -24,11 +24,11 @@ function fetch_page() {
     --data cnum=$1 \
     --data "page_no=$2" | \
   $PUP_BINARY '#nsdl-tables tr json{}' | \
-  # generate 6 lines (second column has a link, so parse that) with raw output
-  jq --raw-output '.[] | [.children[1].children[0].text, .children[2].text, .children[3].text,.children[4].text,.children[5].text]|.[]' | \
-  # and create a CSV from every 5 lines
-  paste -d, - - - - -  | \
-  # and we don't need the first row
+  # Generate a CSV (this contains the header row as well)
+  jq --raw-output '.[] | [.children[1].children[0].text, .children[2].text, .children[3].text,.children[4].text,.children[5].text]|@csv' | \
+  # Convert &amp; to &
+  sed 's/&amp;/\&/g' | \
+  # Drop the first row
   tail -n +2 >> "$3"
 }
 function fetch_total_pages() {
@@ -61,4 +61,5 @@ sem --wait
 sort -o "$CLASS.csv" "$CLASS.csv"
 # Remove lines that don't start with the correct prefix
 # This is to avoid ISINs like INF955L01IN9 showing up under IN9
-sed -i "/^$CLASS/!d" "$CLASS.csv"
+# Note that there is a " at the beginning to account for quoted CSVs
+sed -i "/^\"$CLASS/!d" "$CLASS.csv"
