@@ -30,8 +30,8 @@ update: ISIN
 old:
 	git show HEAD^:ISIN.csv > /tmp/ISIN.csv
 
-release.md: old
-	python3 src/diff.py > release.md
+release-notes: old
+	python3 src/diff.py
 
-release: release.md
-	gh release create "$(version)" --notes-file release.md ISIN.csv
+release: release-notes
+	gh release create "$(version)" --notes-file notes.md ISIN.csv release.md

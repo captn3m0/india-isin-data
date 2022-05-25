@@ -1,6 +1,5 @@
 ## Generates a single diff for a single row, ignoring the Status field
-<%def name="singlediff(row)">
-@@ ${row['key']}
+<%def name="singlediff(row)">@@ ${row['key']}
 %for k in row['changes']:
 %if k != 'Status':
 -${k}:${row['changes'][k][0]}
@@ -19,7 +18,7 @@ ${row['changes']['Description'][1]}
 %endif
 </%def>
 
-% if len(added) > 0
+% if len(added) > 0:
 <h2>Additions</h2>
 
 The following new ISINs were added:
@@ -33,7 +32,7 @@ ISIN|Description|Issuer|Type|Status
 %endif
 
 
-% if len(changed) > 0
+% if len(changed) > 0:
 <h2>Changes</h2>
 
 The following ISINs changed their status:
