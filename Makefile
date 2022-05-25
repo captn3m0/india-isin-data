@@ -33,5 +33,10 @@ old:
 release-notes: old
 	python3 src/diff.py
 
-release: release-notes
-	gh release create "$(version)" --notes-file notes.md ISIN.csv release.md
+release: release-notes db
+	gh release create "$(version)" --notes-file notes.md ISIN.csv release.md ISIN.db
+
+db:
+	cat ISIN.csv | tail -n +2 > /tmp/ISIN-no-headers.csv
+	rm -f ISIN.db
+	cat src/setup.sql | sqlite3 ISIN.db
