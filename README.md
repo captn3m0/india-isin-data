@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6508187.svg)](https://doi.org/10.5281/zenodo.6508187) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/captn3m0/india-isin-data) ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/captn3m0/india-isin-data) ![GitHub repo size](https://img.shields.io/github/repo-size/captn3m0/india-isin-data) [![Flat GitHub Badge](https://img.shields.io/badge/View_Data_on-Flat_Github-GREEN.svg)](https://flatgithub.com/captn3m0/india-isin-data)
 
-ISIN Data from various public securities. You can sort and filter this dataset in your browset at https://flatgithub.com/captn3m0/india-isin-data.
+ISIN Data from various public securities. You can sort and filter this dataset in your browser at https://flatgithub.com/captn3m0/india-isin-data.
 
 Source: [NSDL Website Detailed ISIN Search][nsdl].
 
@@ -12,24 +12,25 @@ Automatically updated every midnight (IST).
 
 # ISIN Structure
 
-ISIN (Internation Security Identification Numbering System) is defined by [ISO 6166:2021][iso] and adopted in India by BIS as [IS 15415:2021][bis] ([(PDF)][bispdf]) ([(PDF2)](https://archive.org/details/gov.in.is.15415.2003)). ISINs in India are [alloted by NSDL for all securities except Government Securities](https://investor.sebi.gov.in/pdf/reference-material/ppt/PPT-7%20Depository%20Services.pdf) (See Page 9).
+ISIN (International Securities Identification Number) is defined by [ISO 6166:2021][iso] and adopted in India by BIS as [IS 15415:2021][bis] ([(PDF)][bispdf]) ([(PDF2)](https://archive.org/details/gov.in.is.15415.2003)). ISINs in India are [allotted by NSDL for all securities except Government Securities](https://investor.sebi.gov.in/pdf/reference-material/ppt/PPT-7%20Depository%20Services.pdf) (See Page 9).
 
 > This Indian Standard (Second Revision) which is identical with ISO 6166 : 2021 ‘Financial services - International securities identification number (ISIN)’ issued by the International Organization for Standardization (ISO) was adopted by the Bureau of Indian Standards on recommendation of the Banking and Financial Services Sectional Committee and approval of the Services Sector Division Council.
 
 ISIN, as per the ISO standard consists of 3 parts:
 
-1. 2 Character country code as prefix (ISO-3166). For ISINs issued in India, this will always be `IN`.
-2. The Basic Number, 9 alphanumeric characters left padded with zeroes.
-3. A check digit.
+1. **A 2 Character country code as prefix (ISO-3166)**. For ISINs issued in India, this will always be `IN`.
+2. **A Basic Identification Number**. 9 alphanumeric characters left padded with zeroes.
+3. **A check digit**.
 
 The basic number in India is issued by NSDL and is composed of 4 parts:
 
-1. 1 Character for the kind of issuer. This varies from A-F/9.
-1. A 4 character Issuer Code. Alphanumeric.
-1. A 2 Character code for security type. Alphanumeric.
-1. A 2 Digit serial number for the security itself. Alphanumeric.
+1. A 1-character **Issuer-Type**. This varies from A-F/9.
+1. A 4-character **Issuer code**. Alphanumeric.
+1. A 2-character **Security Type**. Alphanumeric.
+1. A 2-digit **serial number for the security itself**. Alphanumeric.
 
-Hence, each issuer can issue 36^2 = 1296 securities under each type. The table below explains the same with an example:
+Hence, each issuer can issue 36^2 = 1296 securities under each type.  
+The table below explains the same with an example:
 
 <div>
 <table>
@@ -62,7 +63,7 @@ Hence, each issuer can issue 36^2 = 1296 securities under each type. The table b
             <th>Class</th>
 			<td style="text-align: center"><code>I</code></td>
 			<td style="text-align: center"><code>N</code></td>
-			<td style="text-align: center"><code>A-F,9</code></td>
+			<td style="text-align: center"><code>A-F,0-9</code></td>
 			<td style="text-align: center"><code>alpha</code></td>
 			<td style="text-align: center"><code>alpha</code></td>
 			<td style="text-align: center"><code>alpha</code></td>
@@ -93,7 +94,7 @@ Hence, each issuer can issue 36^2 = 1296 securities under each type. The table b
 </table>
 </div>
 
-In the above ISIN (`INF789F01XA0`), here's the breakdown:
+Here's the breakdown of the above ISIN (`INF789F01XA0`):
 
 - Country Code: `IN`
 - Issuer Type: `F` (Mutual Funds)
@@ -102,17 +103,17 @@ In the above ISIN (`INF789F01XA0`), here's the breakdown:
 - Serial Number: `XA`
 - Check Digit: `0`
 
-### Isser Types
+### Issuer Types
 
-Issuer Type|Isser Type Code
+Issuer Type|Issuer Type Code
 -----------|-------------
 Central Government|`A`
 State Government|`B`
 Municipal Corporation|`C`
 Union Territories|`D`
-Company, Statuatory Corporation, Banking Company|`E`
+Company, Statutory Corporation, Banking Company|`E`
 Mutual Funds|`F`
-Partly Paidup Shares|`G`
+Partly Paid-up Shares|`G`
 Central Government Security|`0`
 State Government Security|`1`
 State Government Security|`2`
@@ -169,7 +170,7 @@ Mutual Fund (`INF`) | C1 |   Mutual Fund Unit
 
 ### Check Digit
 
-The last digit (check-digit) is calculated using the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) with a slight change to accomodate alphanumeric characters. Alphabets are converted to digits by adding `9` to the usual numeric value of each letter. For example `A=10,B=12,C=13……Z=35`. A few examples:
+The last digit (check-digit) is calculated using the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) with a slight change to accommodate alphanumeric characters. Alphabets are converted to digits by adding `9` to the usual numeric value of each letter. For example `A=10, B=12, C=13, ..., Z=35`. A few examples:
 
 ISIN|Payload|Check Digit|Validate
 ----|-------|--------|---
