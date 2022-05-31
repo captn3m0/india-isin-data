@@ -214,6 +214,8 @@ ISINs for India can be found at a few other sources:
 - The [OpenFIGI API](https://www.openfigi.com/api) returns results for some (not all) Indian ISINs.
 - The National Stock Exchange has [a few](https://www1.nseindia.com/products/content/debt/wdm/gsec_reporting_homepage.htm) [pages](https://www1.nseindia.com/products/content/debt/ncbp/ncbp_issues.htm) listing Government Security ISINs.
 - Similarly, the Reserve Bank of India also lists Government Securities at a few pages: [[1]](https://www.rbi.org.in/Scripts/bs_viewcontent.aspx?Id=3876), [[2]](https://rbi.org.in/Scripts/bs_viewcontent.aspx?Id=1956), [[3](https://rbi.org.in/scripts/Bs_viewcontent.aspx?Id=3973)], [[4](https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=51712#AN1)], [[5](https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=52077)]. 
+- [Securities admitted for Dematerialisation](https://nsdl.co.in/securities_admitted_for_dematerialisation.php) on the NSDL website
+- [CSV Download](https://nsdl.co.in/list-codes.php) on the NSDL website. This doesn't include [Government securities](https://forum.fossunited.org/t/indias-isin-dataset/1090/4?u=nemo)
 
 # License
 
