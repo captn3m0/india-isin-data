@@ -1,7 +1,6 @@
 name: Update Data
 on:
   workflow_dispatch:
-  push:
   schedule:
     # 18:07 UTC every day
     # 23:37 IST every day
