@@ -19,6 +19,7 @@ jobs:
       id: update_data
     # Only tag if we're running on the scheduled job
     - uses: stefanzweifel/git-auto-commit-action@v4
+      id: auto-commit-action
       with:
         commit_message: Update ISIN Data
         commit_author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
@@ -26,6 +27,7 @@ jobs:
         status_options: '--untracked-files=no'
         tagging_message: "v${{ steps.update_data.outputs.version }}"
     - name: Create Release
+      if: steps.auto-commit-action.outputs.changes_detected == 'true'
       run: |
         pip install -r src/requirements.txt
         make release "version=v${{ steps.update_data.outputs.version }}"
