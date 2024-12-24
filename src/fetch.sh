@@ -20,6 +20,7 @@ function fetch_page() {
     --user-agent "Mozilla/Gecko/Firefox/58.0" \
     --retry 10 \
     --connect-timeout 30 \
+    --cacert src/GeoTrustTLSRSACAG1.crt.pem \
     --retry-max-time 100 \
     --data cnum=$1 \
     --data "page_no=$2" | \
@@ -32,9 +33,13 @@ function fetch_page() {
   tail -n +2 >> "$3"
 }
 function fetch_total_pages() {
+  # https://whatsmychaincert.com/?nsdl.co.in 
+  # NSDL.co.in is missing the intermediate chain cert
+  # so we allow the intermediate (src/GeoTrustTLSRSACAG1.crt.pem)
   curl "https://nsdl.co.in/master_search_res.php" \
     --user-agent "Mozilla/Gecko/Firefox/58.0" \
     --silent \
+    --cacert src/GeoTrustTLSRSACAG1.crt.pem \
     --data cnum=$1 \
     --data "page_no=1" |
   $PUP_BINARY 'input[name=total_page] attr{value}'
