@@ -5,9 +5,9 @@ authors:
   given-names: "Abhay"
   orcid: https://orcid.org/0000-0002-7993-1363
 title: "India ISIN Database, by Nemo"
-version: 2025.5.9
+version: 2025.5.12
 url: "https://github.com/captn3m0/india-isin-data"
-date-released: 2025-05-09
+date-released: 2025-05-12
 preferred-citation:
   url: "https://github.com/captn3m0/india-isin-data"
   type: data
