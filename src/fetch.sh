@@ -15,7 +15,7 @@ fi
 # Call with INX Page_num file_name
 function fetch_page() {
   echo "[+] $1/$2"
-  curl "https://nsdl.co.in/master_search_res.php" \
+  curl --insecure "https://nsdl.co.in/master_search_res.php" \
     --no-progress-meter \
     --user-agent "Mozilla/Gecko/Firefox/58.0" \
     --retry 10 \
@@ -36,7 +36,7 @@ function fetch_total_pages() {
   # https://whatsmychaincert.com/?nsdl.co.in 
   # NSDL.co.in is missing the intermediate chain cert
   # so we allow the intermediate (src/GeoTrustTLSRSACAG1.crt.pem)
-  curl "https://nsdl.co.in/master_search_res.php" \
+  curl --insecure "https://nsdl.co.in/master_search_res.php" \
     --user-agent "Mozilla/Gecko/Firefox/58.0" \
     --silent \
     --cacert src/GeoTrustTLSRSACAG1.crt.pem \
