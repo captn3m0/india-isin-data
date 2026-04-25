@@ -42,8 +42,8 @@ fetch-db:
 #   3. download today's ISIN_DETAILS CSV
 #   4. load both CSVs into isin.db (diffs go to isin_history)
 update: fetch-db $(SEARCH_CSV) details
-	uv run src/sqlite_db.py load $(SEARCH_CSV)
-	if [ -f $(DETAILS_FILE) ]; then uv run src/sqlite_db.py load $(DETAILS_FILE); fi
+	uv run src/main.py load $(SEARCH_CSV)
+	if [ -f $(DETAILS_FILE) ]; then uv run src/main.py load $(DETAILS_FILE); fi
 	sed -i "s/^version.*/version: $(version)/" CITATION.cff
 	sed -i "s/^date-released.*/date-released: $$(date --rfc-3339=date)/" CITATION.cff
 	jq ".version = \"$(version)\" | .created = \"$$(date --rfc-3339=seconds)\"" datapackage.json > d2.json
