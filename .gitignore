@@ -1,5 +1,11 @@
 pup
-release.md
 pup.zip
 IN*.csv
+search.csv
+ISIN_DETAILS_*.csv
+ISIN_DETAILS_*.csv.tmp
+isin.db
+isin.db-wal
+isin.db-shm
+release.md
 notes.md

@@ -47,17 +47,46 @@ function fetch_total_pages() {
 export -f fetch_page
 
 function fetch_class() {
-  for i in $(seq 1 $2); do
-    sem -j 10 --timeout 500% fetch_page $1 $i "$1.csv"
-  done
+  local class="$1"
+  local total="$2"
+  local partial="$3"
+
+  if [ "$partial" = "1" ] && [ "$total" -gt 500 ]; then
+    # Date-indexed partial fetch: fetch only pages where (page_no % 100) == (day_of_year % 100).
+    # All pages get covered every 100 days (~3-4 hits/year on a daily schedule).
+    local doy
+    doy=$(date +%-j)
+    local bucket=$((doy % 100))
+    echo "[partial] $class: bucket $bucket/100 (day-of-year $doy)"
+    for i in $(seq 1 "$total"); do
+      if [ $((i % 100)) -eq "$bucket" ]; then
+        sem -j 10 --timeout 500% fetch_page "$class" "$i" "$class.csv"
+      fi
+    done
+  else
+    for i in $(seq 1 "$total"); do
+      sem -j 10 --timeout 500% fetch_page "$class" "$i" "$class.csv"
+    done
+  fi
 }
 
-CLASS="$1"
+PARTIAL_OK=0
+CLASS=""
+for arg in "$@"; do
+  case "$arg" in
+    --partial-okay) PARTIAL_OK=1 ;;
+    *) CLASS="$arg" ;;
+  esac
+done
+if [ -z "$CLASS" ]; then
+  echo "Usage: $0 [--partial-okay] CLASS" >&2
+  exit 1
+fi
 
 total=$(fetch_total_pages "$CLASS")
-echo "::group::$CLASS (Total=$total)"
+echo "::group::$CLASS (Total=$total, partial=$PARTIAL_OK)"
 rm -f "$CLASS.csv"
-fetch_class "$CLASS" $total
+fetch_class "$CLASS" "$total" "$PARTIAL_OK"
 echo "::endgroup::"
 
 sem --wait
