@@ -6,13 +6,13 @@ version := $(shell date +%Y.%-m.%-d)
         INE INF IN9 IN0 IN1 IN2 IN3 IN4 INA INB INC IND ING
 
 check:
-	for cmd in pup jq parallel curl sed; do \
+	for cmd in jq curl sed; do \
 		command -v $$cmd >/dev/null 2>&1 || { echo >&2 "I require $$cmd but it's not installed."; exit 1; }; \
 	done
 
-# Fetch ISINs from NSDL master search across every issuer class.
-# Large classes (INE, INF, IN9) are partial-fetched ~1/100 pages per day,
-# rotating through the full corpus in 100 days. Small classes pull every page.
+# Fetch ISINs from NSDL search API across every issuer class.
+# With 50k-row API pages every class fits in a few pages, so all classes
+# fetch fully; --partial-okay only kicks in if the API shrinks page sizes.
 SEARCH_CSV := search.csv
 
 $(SEARCH_CSV): INE INF IN9 IN0 IN1 IN2 IN3 IN4 INA INB INC IND ING

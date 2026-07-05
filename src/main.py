@@ -71,7 +71,9 @@ def diff(old: dict, fields: dict) -> dict:
         if not new_str:
             continue
         old_str = str(old.get(f) or "")
-        if new_str == old_str:
+        # Case-insensitive: NSDL sources differ only in casing for many records
+        # (the search API upper-cases descriptions); not a meaningful change.
+        if new_str.casefold() == old_str.casefold():
             continue
         changes[f] = {"old": old_str, "new": new_str} if old_str else {"new": new_str}
     return changes
