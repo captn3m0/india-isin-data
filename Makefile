@@ -2,7 +2,7 @@ SHELL := /bin/bash
 version := $(shell date +%Y.%-m.%-d)
 
 .SILENT:
-.PHONY: check details fetch-db update release \
+.PHONY: check validate details fetch-db update release \
         INE INF IN9 IN0 IN1 IN2 IN3 IN4 INA INB INC IND ING
 
 check:
@@ -64,8 +64,13 @@ update: fetch-db $(SEARCH_CSV) details
 	jq ".version = \"$(version)\" | .created = \"$$(date --rfc-3339=seconds)\"" datapackage.json > d2.json
 	mv d2.json datapackage.json
 
+# Sanity-check the release artifacts (DB integrity/row-count/sentinel ISINs and
+# the Details CSV header/size) before publishing. Aborts release on any failure.
+validate:
+	uv run src/main.py check isin.db $$([ -f $(DETAILS_STAMP) ] && cat $(DETAILS_STAMP))
+
 # Cut a new release with isin.db and today's Details CSV (idempotent on re-runs).
-release:
+release: validate
 	files="isin.db"; \
 	[ -f $(DETAILS_STAMP) ] && files="$$files $$(cat $(DETAILS_STAMP))"; \
 	if gh release view "v$(version)" >/dev/null 2>&1; then \

@@ -46,6 +46,25 @@ UPSERT_SQL = (
     + ", ".join(f"{c}=excluded.{c}" for c in ISIN_COLS if c != "isin")
 )
 
+# Long-stable NIFTY large-cap equity ISINs. Presence (not status) is the
+# invariant a healthy DB must satisfy: an issuer may have several or retired
+# ISINs, but these blue-chips never vanish. If one goes missing, the load
+# dropped rows and the release should be blocked.
+SENTINEL_ISINS = {
+    "INE002A01018": "Reliance Industries",
+    "INE040A01034": "HDFC Bank",
+    "INE090A01021": "ICICI Bank",
+    "INE009A01021": "Infosys",
+    "INE467B01029": "TCS",
+    "INE154A01025": "ITC",
+    "INE018A01030": "Larsen & Toubro",
+    "INE397D01024": "Bharti Airtel",
+    "INE062A01020": "State Bank of India",
+    "INE030A01027": "Hindustan Unilever",
+}
+DB_MIN_ROWS = 100_000   # real DB is ~400k; catches a truncated/empty load
+CSV_MIN_ROWS = 10_000   # real CSVs are >200k; catches a WAF page / partial fetch
+
 
 def get_conn(db_path: str) -> sqlite3.Connection:
     conn = sqlite3.connect(db_path)
@@ -176,6 +195,48 @@ def load(csv_path, db_path):
         inserts, updates = upsert_batch(conn, rows, state, source, ts)
     conn.close()
     click.echo(f"Loaded {csv_path.name}: +{inserts} new, ~{updates} changed")
+
+
+@cli.command()
+@click.argument("db_path", type=click.Path(exists=True))
+@click.argument("csvs", nargs=-1, type=click.Path(exists=True))
+def check(db_path, csvs):
+    """Sanity-check release artifacts (DB + CSVs). Exit non-zero on any failure."""
+    fails = []
+    conn = sqlite3.connect(db_path)
+    if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
+        fails.append(f"{db_path}: integrity_check failed")
+    if conn.execute("PRAGMA foreign_key_check").fetchall():
+        fails.append(f"{db_path}: foreign_key_check failed (dangling history rows)")
+    rows = conn.execute("SELECT COUNT(*) FROM isin").fetchone()[0]
+    if rows < DB_MIN_ROWS:
+        fails.append(f"{db_path}: {rows:,} isin rows < {DB_MIN_ROWS:,}")
+    present = {r[0] for r in conn.execute(
+        f"SELECT isin FROM isin WHERE isin IN ({','.join('?' * len(SENTINEL_ISINS))})",
+        list(SENTINEL_ISINS),
+    )}
+    for isin in SENTINEL_ISINS:
+        if isin not in present:
+            fails.append(f"{db_path}: sentinel {isin} ({SENTINEL_ISINS[isin]}) missing")
+    conn.close()
+
+    for path in csvs:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            col0 = f.readline().split(",", 1)[0].strip().strip('"')
+            n = sum(1 for _ in f)
+        if col0 != "ISIN":
+            fails.append(f"{path}: first column is {col0!r}, expected 'ISIN'")
+        if n < CSV_MIN_ROWS:
+            fails.append(f"{path}: {n:,} data rows < {CSV_MIN_ROWS:,}")
+
+    for msg in fails:
+        click.echo(f"FAIL {msg}", err=True)
+    if fails:
+        raise SystemExit(1)
+    click.echo(
+        f"check OK: {db_path} {rows:,} rows, {len(SENTINEL_ISINS)} sentinels present; "
+        f"{len(csvs)} csv(s) valid"
+    )
 
 
 @cli.command()
