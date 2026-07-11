@@ -22,14 +22,29 @@ $(SEARCH_CSV): INE INF IN9 IN0 IN1 IN2 IN3 IN4 INA INB INC IND ING
 INE INF IN9 IN0 IN1 IN2 IN3 IN4 INA INB INC IND ING:
 	./src/fetch.sh --partial-okay $@
 
-# Download today's ISIN_DETAILS CSV from NSDL.
-DETAILS_DATE ?= $(shell date +%-d-%b-%Y)
-DETAILS_FILE = ISIN_DETAILS_$(DETAILS_DATE).csv
+# Download the latest ISIN_DETAILS CSV from NSDL. NSDL publishes the current
+# file's path (carrying its own date) via a JSON listing API, so we read the
+# exact path from there instead of guessing today's date. The resolved
+# filename is written to $(DETAILS_STAMP) so a later `make release` uploads the
+# same file. Missing/unreachable data is non-fatal: update/release skip it.
+NSDL_DETAILS_API := https://nsdl.com/web/api//view/annual-reports/id-listing/securities_isin_code
+DETAILS_STAMP := .details-file
 
 details:
-	curl --insecure --fail -sS -o $(DETAILS_FILE) \
-		"https://nsdl.co.in/downloadables/excel/cp-debt/$(DETAILS_FILE)" \
-		|| (rm -f $(DETAILS_FILE); echo "No Details CSV for $(DETAILS_DATE)")
+	rm -f $(DETAILS_STAMP); \
+	path=$$(curl --fail -sS --connect-timeout 30 --retry 3 "$(NSDL_DETAILS_API)" \
+		| jq -r '.[0].f // empty'); \
+	if [ -z "$$path" ]; then \
+		echo "Could not resolve ISIN_DETAILS path from NSDL API"; \
+	else \
+		file=$$(basename "$$path"); \
+		if curl --fail -sS --connect-timeout 30 --retry 3 -o "$$file" "https://nsdl.com$$path"; then \
+			echo "$$file" > $(DETAILS_STAMP); \
+			echo "Downloaded $$file"; \
+		else \
+			rm -f "$$file"; echo "No Details CSV available ($$file)"; \
+		fi; \
+	fi
 
 # Pull latest isin.db from previous GitHub release.
 fetch-db:
@@ -39,11 +54,11 @@ fetch-db:
 # Daily update flow:
 #   1. fetch latest isin.db from previous release
 #   2. fetch ISINs from NSDL search (partial for large classes)
-#   3. download today's ISIN_DETAILS CSV
+#   3. download the latest ISIN_DETAILS CSV (path resolved via NSDL JSON API)
 #   4. load both CSVs into isin.db (diffs go to isin_history)
 update: fetch-db $(SEARCH_CSV) details
 	uv run src/main.py load $(SEARCH_CSV)
-	if [ -f $(DETAILS_FILE) ]; then uv run src/main.py load $(DETAILS_FILE); fi
+	if [ -f $(DETAILS_STAMP) ]; then uv run src/main.py load "$$(cat $(DETAILS_STAMP))"; fi
 	sed -i "s/^version.*/version: $(version)/" CITATION.cff
 	sed -i "s/^date-released.*/date-released: $$(date --rfc-3339=date)/" CITATION.cff
 	jq ".version = \"$(version)\" | .created = \"$$(date --rfc-3339=seconds)\"" datapackage.json > d2.json
@@ -52,7 +67,7 @@ update: fetch-db $(SEARCH_CSV) details
 # Cut a new release with isin.db and today's Details CSV (idempotent on re-runs).
 release:
 	files="isin.db"; \
-	[ -f $(DETAILS_FILE) ] && files="$$files $(DETAILS_FILE)"; \
+	[ -f $(DETAILS_STAMP) ] && files="$$files $$(cat $(DETAILS_STAMP))"; \
 	if gh release view "v$(version)" >/dev/null 2>&1; then \
 		gh release upload "v$(version)" --clobber $$files; \
 	else \

@@ -4,6 +4,7 @@ IN*.csv
 search.csv
 ISIN_DETAILS_*.csv
 ISIN_DETAILS_*.csv.tmp
+.details-file
 isin.db
 isin.db-wal
 isin.db-shm
