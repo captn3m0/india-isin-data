@@ -7,16 +7,37 @@ PER_PAGE=50000
 CURL_ARGS=(-sS --fail --retry 10 --connect-timeout 30 --retry-max-time 100
   --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")
 
+RESP=$(mktemp)
+trap 'rm -f "$RESP"' EXIT
+MAX_TRIES=6
+PAGE_DELAY=${PAGE_DELAY:-5}
+
+# NSDL's WAF sometimes answers HTTP 200 with an HTML block page, so retry until jq accepts the body
+function api_get() {
+  local url="$1" check="$2" try
+  for try in $(seq 1 "$MAX_TRIES"); do
+    if curl "${CURL_ARGS[@]}" -o "$RESP" "$url" && jq -e "$check" "$RESP" >/dev/null 2>&1; then
+      return 0
+    fi
+    echo "::warning::Bad response (try $try/$MAX_TRIES): $(head -c 200 "$RESP" 2>/dev/null | tr -d '\n')" >&2
+    sleep $((try * 15))
+  done
+  echo "::error::Giving up on $url" >&2
+  return 1
+}
+
 # Call with INX Page_num file_name
 function fetch_page() {
   echo "[+] $1/$2"
-  curl "${CURL_ARGS[@]}" "${API}&isin=$1&page=$2&per_page=$PER_PAGE" | \
-  jq --raw-output '.data[] | [.field_isin, .isin_description__value, .name, .security_description, .isin_status] | map(. // "") | @csv' >> "$3"
+  sleep "$PAGE_DELAY"
+  api_get "${API}&isin=$1&page=$2&per_page=$PER_PAGE" '.data | type == "array"'
+  jq --raw-output '.data[] | [.field_isin, .isin_description__value, .name, .security_description, .isin_status] | map(. // "") | @csv' "$RESP" >> "$3"
 }
 
 function fetch_count() {
-  # jq -e fails on missing/null .count so an API change can't silently become 0 pages
-  curl "${CURL_ARGS[@]}" "${API}&isin=$1&page=1&per_page=1" | jq -er '.count'
+  # a missing/non-numeric .count is rejected so an API change can't silently become 0 pages
+  api_get "${API}&isin=$1&page=1&per_page=1" '.count | tonumber' &&
+  jq -r '.count | tonumber' "$RESP"
 }
 
 function fetch_class() {
